@@ -1,0 +1,62 @@
+﻿--Create a database in sql server with name -> TranslationServiceDB. Then run the below query.
+
+USE [TranslationServiceDB]
+GO
+/****** Object:  Table [dbo].[Culture]    Script Date: 02-10-2018 16:47:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Culture](
+	[KeyId] [int] NOT NULL,
+	[RFCTag] [nvarchar](20) NOT NULL,
+	[Name] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Culture] PRIMARY KEY CLUSTERED 
+(
+	[KeyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TranslationKey]    Script Date: 02-10-2018 16:47:10 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TranslationKey](
+	[KeyId] [int] NOT NULL,
+	[KEY] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_TranslationKey] PRIMARY KEY CLUSTERED 
+(
+	[KeyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TranslationValue]    Script Date: 02-10-2018 16:47:10 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TranslationValue](
+	[KeyId] [int] NOT NULL,
+	[CultureId] [int] NOT NULL,
+	[TranslationKeyId] [int] NOT NULL,
+	[Value] [nvarchar](500) NULL,
+ CONSTRAINT [PK_TranslationValue] PRIMARY KEY CLUSTERED 
+(
+	[KeyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[TranslationValue]  WITH CHECK ADD  CONSTRAINT [FK_TranslationValue_CultureId] FOREIGN KEY([CultureId])
+REFERENCES [dbo].[Culture] ([KeyId])
+GO
+ALTER TABLE [dbo].[TranslationValue] CHECK CONSTRAINT [FK_TranslationValue_CultureId]
+GO
+ALTER TABLE [dbo].[TranslationValue]  WITH CHECK ADD  CONSTRAINT [FK_TranslationValue_TranslationKeyId] FOREIGN KEY([TranslationKeyId])
+REFERENCES [dbo].[TranslationKey] ([KeyId])
+GO
+ALTER TABLE [dbo].[TranslationValue] CHECK CONSTRAINT [FK_TranslationValue_TranslationKeyId]
+GO
