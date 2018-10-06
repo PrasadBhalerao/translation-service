@@ -8,7 +8,8 @@ app.service('homeService', function ($resource) {
     });
 
     var translationApi = $resource('/api/translation/:id', {}, {
-        query: { method: 'get', isArray: true }
+        query: { method: 'get', isArray: true },
+        post: {method: 'post'}
     });
 
     var getCulture = function () {
@@ -19,9 +20,14 @@ app.service('homeService', function ($resource) {
         return translationApi.query({ id: id}).$promise;
     }
 
+    var saveTranslation = function (id, translations) {
+        return translationApi.post({ cultureId: id, translations: translations}).$promise;
+    }
+
     return {
         getCulture: getCulture,
-        getTranslation: getTranslation
+        getTranslation: getTranslation,
+        saveTranslation: saveTranslation
     }
 
 });

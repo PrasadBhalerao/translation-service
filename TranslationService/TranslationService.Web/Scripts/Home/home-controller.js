@@ -2,7 +2,7 @@
 
 var app = angular.module('demo', ['ngSanitize', 'ui.select', 'ngHandsontable', 'ngResource']);
 
-app.controller('DemoCtrl', function ($scope, $http, $timeout, $interval, homeService) {
+app.controller('DemoCtrl', function ($scope, $http, $timeout, $interval, hotRegisterer, homeService) {
    $scope.myData = [
         {
             firstName: "Cox",
@@ -30,7 +30,25 @@ app.controller('DemoCtrl', function ($scope, $http, $timeout, $interval, homeSer
     $scope.settings = {
         contextMenu: [
             'row_above', 'row_below', 'remove_row'
-        ]
+        ],
+        colHeaders: ['Translation key', 'Translation value'],
+        columns: [
+            {
+                data: 'Key',
+                editor: false
+            },
+            {
+                data: 'Value',
+                editor: 'text'
+            }],
+        cells: function (row, col, prop) {
+            var cellProperties = {};
+            //allow editing translation key for new entries
+            if (prop == "Key" && $scope.data[row] && $scope.data[row]['TranslationKeyId'] == null) {
+                cellProperties.editor = 'text';
+            }
+            return cellProperties;
+        }
     };
 
     $scope.culture = {};
@@ -40,6 +58,7 @@ app.controller('DemoCtrl', function ($scope, $http, $timeout, $interval, homeSer
 
     $scope.data = {};
     $scope.cultureChanged = function () {
+        debugger;
         homeService.getTranslation($scope.culture.selected.KeyID).then(function (response) {
             $scope.data = response;
         });
@@ -52,4 +71,10 @@ app.controller('DemoCtrl', function ($scope, $http, $timeout, $interval, homeSer
         });
     };
     loadInitialCultureData();
+
+    $scope.save = function () {
+        homeService.saveTranslation(50, $scope.data).then(function (response) {
+            $scope.data = response;
+        });
+    };
 });

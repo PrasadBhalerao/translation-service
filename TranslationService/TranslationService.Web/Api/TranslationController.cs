@@ -26,5 +26,17 @@ namespace TranslationService.Web.Api
             var result = await _translationService.GetTranslationsForCulture(id);
             return result;
         }
+
+        [HttpPost]
+        public void Post([FromBody]TranslationDTO translations)
+        {
+            _translationService.SaveTranslationForCulture(translations.CultureId, translations.Translations);
+        }
+    }
+
+    public class TranslationDTO
+    {
+        public int CultureId { get; set; }
+        public List<TranslationVO> Translations { get; set; }
     }
 }

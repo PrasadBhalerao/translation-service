@@ -65,16 +65,26 @@
     <div style="padding-top: 50px;"></div>
 
     <h3>Select a culture</h3>
-    <ui-select ng-model="culture.selected" theme="selectize" style="width: 300px;" title="Choose a culture" on-select="cultureChanged()">
-        <ui-select-match placeholder="Select or search a culture in the list...">{{$select.selected.DisplayName}}</ui-select-match>
-        <ui-select-choices repeat="culture in cultures | filter: $select.search">
-            <span ng-bind-html="culture.DisplayName | highlight: $select.search"></span>
-        </ui-select-choices>
-    </ui-select>
+
+    <div class="row">
+        <div class="col-md-3">
+            <ui-select ng-model="culture.selected" theme="selectize" style="width: 300px;" title="Choose a culture" on-select="cultureChanged()">
+                <ui-select-match placeholder="Select or search a culture in the list...">{{$select.selected.DisplayName}}</ui-select-match>
+                <ui-select-choices repeat="culture in cultures | filter: $select.search">
+                    <span ng-bind-html="culture.DisplayName | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="col-md-2 col-md-offset-1">
+            <button class="btn btn-primary" ng-click="save()">Save</button>
+        </div>
+    </div>
+    
 
     <div style="padding-top: 50px;"></div>
 
-    <hot-table settings="settings"
+    <hot-table hot-id="translation-table"
+               settings="settings"
                row-headers="rowHeaders"
                col-headers="colHeaders"
                datarows="data">
