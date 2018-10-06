@@ -1,0 +1,19 @@
+{
+  "name": "TranslationService.Web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.7.4",
+    "angular-resource": "^1.7.4",
+    "angular-sanitize": "^1.7.4",
+    "ng-handsontable": "^0.13.0",
+    "ui-select": "^0.19.8"
+  }
+}

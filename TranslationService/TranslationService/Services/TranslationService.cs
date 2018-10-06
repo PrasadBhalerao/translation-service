@@ -18,13 +18,11 @@ namespace TranslationService.Services
         }
 
 
-        public async Task<List<TranslationVO>> GetTranslationsForCulture()
+        public async Task<List<TranslationVO>> GetTranslationsForCulture(int cultureId)
         {
             var list = await(from translationKey in _db.TranslationKeys
-                       join translationValue in _db.TranslationValues
+                       join translationValue in _db.TranslationValues.Where(x => x.CultureID == cultureId)
                        on translationKey.KeyID equals translationValue.TranslationKeyID
-                       join culture in _db.Cultures
-                       on translationValue.CultureID equals culture.KeyID
                        select new TranslationVO
                        {
                            Key = translationKey.Key,

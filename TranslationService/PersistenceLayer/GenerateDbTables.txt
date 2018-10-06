@@ -7,15 +7,295 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE TABLE [dbo].[Culture](
-	[KeyId] [int] NOT NULL,
-	[RFCTag] [nvarchar](20) NOT NULL,
-	[Name] [nvarchar](50) NULL,
+	[KeyId] [int] IDENTITY(1,1) NOT NULL,
+	[CultureCode] [nvarchar](10) NOT NULL,
+	[DisplayName] [nvarchar](30) NOT NULL,
+	[CultureName] [nvarchar](10) NOT NULL,
  CONSTRAINT [PK_Culture] PRIMARY KEY CLUSTERED 
 (
 	[KeyId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
+GO
+
+SET IDENTITY_INSERT [dbo].[Culture] ON;
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (1, N'0x0436', N'Afrikaans - South Africa', N'af-ZA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (2, N'0x041C', N'Albanian - Albania', N'sq-AL')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (3, N'0x1401', N'Arabic - Algeria', N'ar-DZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (4, N'0x3C01', N'Arabic - Bahrain', N'ar-BH')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (5, N'0x0C01', N'Arabic - Egypt', N'ar-EG')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (6, N'0x0801', N'Arabic - Iraq', N'ar-IQ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (7, N'0x2C01', N'Arabic - Jordan', N'ar-JO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (8, N'0x3401', N'Arabic - Kuwait', N'ar-KW')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (9, N'0x3001', N'Arabic - Lebanon', N'ar-LB')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (10, N'0x1001', N'Arabic - Libya', N'ar-LY')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (11, N'0x1801', N'Arabic - Morocco', N'ar-MA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (12, N'0x2001', N'Arabic - Oman', N'ar-OM')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (13, N'0x4001', N'Arabic - Qatar', N'ar-QA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (14, N'0x0401', N'Arabic - Saudi Arabia', N'ar-SA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (15, N'0x2801', N'Arabic - Syria', N'ar-SY')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (16, N'0x1C01', N'Arabic - Tunisia', N'ar-TN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (17, N'0x3801', N'Arabic - United Arab Emirates', N'ar-AE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (18, N'0x2401', N'Arabic - Yemen', N'ar-YE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (19, N'0x042B', N'Armenian - Armenia', N'hy-AM')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (20, N'0x082C', N'Azeri (Cyrillic) - Azerbaijan', N'Cy-az-AZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (21, N'0x042C', N'Azeri (Latin) - Azerbaijan', N'Lt-az-AZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (22, N'0x042D', N'Basque - Basque', N'eu-ES')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (23, N'0x0423', N'Belarusian - Belarus', N'be-BY')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (24, N'0x0402', N'Bulgarian - Bulgaria', N'bg-BG')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (25, N'0x0403', N'Catalan - Catalan', N'ca-ES')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (26, N'0x0804', N'Chinese - China', N'zh-CN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (27, N'0x0C04', N'Chinese - Hong Kong SAR', N'zh-HK')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (28, N'0x1404', N'Chinese - Macau SAR', N'zh-MO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (29, N'0x1004', N'Chinese - Singapore', N'zh-SG')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (30, N'0x0404', N'Chinese - Taiwan', N'zh-TW')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (31, N'0x0004', N'Chinese (Simplified)', N'zh-CHS')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (32, N'0x7C04', N'Chinese (Traditional)', N'zh-CHT')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (33, N'0x041A', N'Croatian - Croatia', N'hr-HR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (34, N'0x0405', N'Czech - Czech Republic', N'cs-CZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (35, N'0x0406', N'Danish - Denmark', N'da-DK')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (36, N'0x0465', N'Dhivehi - Maldives', N'div-MV')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (37, N'0x0813', N'Dutch - Belgium', N'nl-BE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (38, N'0x0413', N'Dutch - The Netherlands', N'nl-NL')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (39, N'0x0C09', N'English - Australia', N'en-AU')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (40, N'0x2809', N'English - Belize', N'en-BZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (41, N'0x1009', N'English - Canada', N'en-CA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (42, N'0x2409', N'English - Caribbean', N'en-CB')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (43, N'0x1809', N'English - Ireland', N'en-IE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (44, N'0x2009', N'English - Jamaica', N'en-JM')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (45, N'0x1409', N'English - New Zealand', N'en-NZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (46, N'0x3409', N'English - Philippines', N'en-PH')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (47, N'0x1C09', N'English - South Africa', N'en-ZA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (48, N'0x2C09', N'English - Trinidad and Tobago', N'en-TT')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (49, N'0x0809', N'English - United Kingdom', N'en-GB')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (50, N'0x0409', N'English - United States', N'en-US')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (51, N'0x3009', N'English - Zimbabwe', N'en-ZW')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (52, N'0x0425', N'Estonian - Estonia', N'et-EE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (53, N'0x0438', N'Faroese - Faroe Islands', N'fo-FO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (54, N'0x0429', N'Farsi - Iran', N'fa-IR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (55, N'0x040B', N'Finnish - Finland', N'fi-FI')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (56, N'0x080C', N'French - Belgium', N'fr-BE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (57, N'0x0C0C', N'French - Canada', N'fr-CA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (58, N'0x040C', N'French - France', N'fr-FR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (59, N'0x140C', N'French - Luxembourg', N'fr-LU')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (60, N'0x180C', N'French - Monaco', N'fr-MC')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (61, N'0x100C', N'French - Switzerland', N'fr-CH')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (62, N'0x0456', N'Galician - Galician', N'gl-ES')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (63, N'0x0437', N'Georgian - Georgia', N'ka-GE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (64, N'0x0C07', N'German - Austria', N'de-AT')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (65, N'0x0407', N'German - Germany', N'de-DE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (66, N'0x1407', N'German - Liechtenstein', N'de-LI')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (67, N'0x1007', N'German - Luxembourg', N'de-LU')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (68, N'0x0807', N'German - Switzerland', N'de-CH')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (69, N'0x0408', N'Greek - Greece', N'el-GR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (70, N'0x0447', N'Gujarati - India', N'gu-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (71, N'0x040D', N'Hebrew - Israel', N'he-IL')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (72, N'0x0439', N'Hindi - India', N'hi-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (73, N'0x040E', N'Hungarian - Hungary', N'hu-HU')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (74, N'0x040F', N'Icelandic - Iceland', N'is-IS')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (75, N'0x0421', N'Indonesian - Indonesia', N'id-ID')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (76, N'0x0410', N'Italian - Italy', N'it-IT')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (77, N'0x0810', N'Italian - Switzerland', N'it-CH')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (78, N'0x0411', N'Japanese - Japan', N'ja-JP')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (79, N'0x044B', N'Kannada - India', N'kn-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (80, N'0x043F', N'Kazakh - Kazakhstan', N'kk-KZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (81, N'0x0457', N'Konkani - India', N'kok-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (82, N'0x0412', N'Korean - Korea', N'ko-KR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (83, N'0x0440', N'Kyrgyz - Kazakhstan', N'ky-KZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (84, N'0x0426', N'Latvian - Latvia', N'lv-LV')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (85, N'0x0427', N'Lithuanian - Lithuania', N'lt-LT')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (86, N'0x042F', N'Macedonian (FYROM)', N'mk-MK')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (87, N'0x083E', N'Malay - Brunei', N'ms-BN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (88, N'0x043E', N'Malay - Malaysia', N'ms-MY')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (89, N'0x044E', N'Marathi - India', N'mr-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (90, N'0x0450', N'Mongolian - Mongolia', N'mn-MN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (91, N'0x0414', N'Norwegian (BokmÃ¥l) - Norway', N'nb-NO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (92, N'0x0814', N'Norwegian (Nynorsk) - Norway', N'nn-NO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (93, N'0x0415', N'Polish - Poland', N'pl-PL')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (94, N'0x0416', N'Portuguese - Brazil', N'pt-BR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (95, N'0x0816', N'Portuguese - Portugal', N'pt-PT')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (96, N'0x0446', N'Punjabi - India', N'pa-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (97, N'0x0418', N'Romanian - Romania', N'ro-RO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (98, N'0x0419', N'Russian - Russia', N'ru-RU')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (99, N'0x044F', N'Sanskrit - India', N'sa-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (100, N'0x0C1A', N'Serbian (Cyrillic) - Serbia', N'Cy-sr-SP')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (101, N'0x081A', N'Serbian (Latin) - Serbia', N'Lt-sr-SP')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (102, N'0x041B', N'Slovak - Slovakia', N'sk-SK')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (103, N'0x0424', N'Slovenian - Slovenia', N'sl-SI')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (104, N'0x2C0A', N'Spanish - Argentina', N'es-AR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (105, N'0x400A', N'Spanish - Bolivia', N'es-BO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (106, N'0x340A', N'Spanish - Chile', N'es-CL')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (107, N'0x240A', N'Spanish - Colombia', N'es-CO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (108, N'0x140A', N'Spanish - Costa Rica', N'es-CR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (109, N'0x1C0A', N'Spanish - Dominican Republic', N'es-DO')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (110, N'0x300A', N'Spanish - Ecuador', N'es-EC')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (111, N'0x440A', N'Spanish - El Salvador', N'es-SV')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (112, N'0x100A', N'Spanish - Guatemala', N'es-GT')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (113, N'0x480A', N'Spanish - Honduras', N'es-HN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (114, N'0x080A', N'Spanish - Mexico', N'es-MX')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (115, N'0x4C0A', N'Spanish - Nicaragua', N'es-NI')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (116, N'0x180A', N'Spanish - Panama', N'es-PA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (117, N'0x3C0A', N'Spanish - Paraguay', N'es-PY')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (118, N'0x280A', N'Spanish - Peru', N'es-PE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (119, N'0x500A', N'Spanish - Puerto Rico', N'es-PR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (120, N'0x0C0A', N'Spanish - Spain', N'es-ES')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (121, N'0x380A', N'Spanish - Uruguay', N'es-UY')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (122, N'0x200A', N'Spanish - Venezuela', N'es-VE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (123, N'0x0441', N'Swahili - Kenya', N'sw-KE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (124, N'0x081D', N'Swedish - Finland', N'sv-FI')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (125, N'0x041D', N'Swedish - Sweden', N'sv-SE')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (126, N'0x045A', N'Syriac - Syria', N'syr-SY')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (127, N'0x0449', N'Tamil - India', N'ta-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (128, N'0x0444', N'Tatar - Russia', N'tt-RU')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (129, N'0x044A', N'Telugu - India', N'te-IN')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (130, N'0x041E', N'Thai - Thailand', N'th-TH')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (131, N'0x041F', N'Turkish - Turkey', N'tr-TR')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (132, N'0x0422', N'Ukrainian - Ukraine', N'uk-UA')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (133, N'0x0420', N'Urdu - Pakistan', N'ur-PK')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (134, N'0x0843', N'Uzbek (Cyrillic) - Uzbekistan', N'Cy-uz-UZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (135, N'0x0443', N'Uzbek (Latin) - Uzbekistan', N'Lt-uz-UZ')
+GO
+INSERT [dbo].[Culture] ([KeyId], [CultureCode], [DisplayName], [CultureName]) VALUES (136, N'0x042A', N'Vietnamese - Vietnam', N'vi-VN')
+GO
+SET IDENTITY_INSERT [dbo].[Culture] OFF;
+
 
 GO
 /****** Object:  Table [dbo].[TranslationKey]    Script Date: 02-10-2018 16:47:10 ******/
@@ -24,7 +304,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[TranslationKey](
-	[KeyId] [int] NOT NULL,
+	[KeyId] [int] IDENTITY(1,1) NOT NULL,
 	[KEY] [nvarchar](100) NOT NULL,
  CONSTRAINT [PK_TranslationKey] PRIMARY KEY CLUSTERED 
 (
@@ -39,7 +319,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[TranslationValue](
-	[KeyId] [int] NOT NULL,
+	[KeyId] [int] IDENTITY(1,1) NOT NULL,
 	[CultureId] [int] NOT NULL,
 	[TranslationKeyId] [int] NOT NULL,
 	[Value] [nvarchar](500) NULL,

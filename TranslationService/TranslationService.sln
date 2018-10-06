@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "Translation
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceLayer", "PersistenceLayer\PersistenceLayer.csproj", "{8ECA7B2B-3767-44AF-9BE8-712A484A0C5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationService.Web", "TranslationService.Web\TranslationService.Web.csproj", "{8ED8F745-5F7D-42F9-996E-5A95794BB3C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "TranslationService.Web\Web.csproj", "{8ED8F745-5F7D-42F9-996E-5A95794BB3C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

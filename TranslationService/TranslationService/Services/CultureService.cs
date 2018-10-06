@@ -19,7 +19,7 @@ namespace TranslationService.Services
 
         public async Task<List<Culture>> GetCultures(string searchString)
         {
-            var list = await _db.Cultures.Where(x => x.Name.Contains(searchString)).ToListAsync();
+            var list = await _db.Cultures.ToListAsync();
             return list;
         }
     }

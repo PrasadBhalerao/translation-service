@@ -1,7 +1,85 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Index";        
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+<html lang="en" ng-app="demo">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS ui-select</title>
+
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="~/Scripts/Home/home-controller.js"></script>
+    <script src="~/Scripts/Home/home-service.js"></script>
+    <script src="/node_modules/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/node_modules/angular-resource/angular-resource.js"></script>
+    <script src="/node_modules/handsontable/dist/handsontable.full.js"></script>
+    <script src="/node_modules/ng-handsontable/dist/ngHandsontable.js"></script>
+
+    <!-- ui-select files -->
+    <script src="/node_modules/ui-select/dist/select.js"></script>
+    <link rel="stylesheet" href="/node_modules/ui-select/dist/select.css">
+
+    <!-- themes -->
+    <link rel="stylesheet" href="~/Content/selectize.default.css">
+
+    <!-- angular -->
+    <link rel="stylesheet" media="screen" href="/node_modules/handsontable/dist/handsontable.full.css">
+
+    <style>
+        body {
+            padding: 15px;
+        }
+
+        .select2 > .select2-choice.ui-select-match {
+            /* Because of the inclusion of Bootstrap */
+            height: 29px;
+        }
+
+        .selectize-control > .selectize-dropdown {
+            top: 36px;
+        }
+        /* Some additional styling to demonstrate that append-to-body helps achieve the proper z-index layering. */
+        .select-box {
+            background: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .alert-info.positioned {
+            margin-top: 1em;
+            position: relative;
+            z-index: 10000; /* The select2 dropdown has a z-index of 9999 */
+        }
+
+        .myGrid {
+            z-index: -1;
+        }
+
+    </style>
+</head>
+
+<body class="ng-cloak" ng-controller="DemoCtrl">
+
+    <div style="padding-top: 50px;"></div>
+
+    <h3>Select a culture</h3>
+    <ui-select ng-model="culture.selected" theme="selectize" style="width: 300px;" title="Choose a culture" on-select="cultureChanged()">
+        <ui-select-match placeholder="Select or search a culture in the list...">{{$select.selected.DisplayName}}</ui-select-match>
+        <ui-select-choices repeat="culture in cultures | filter: $select.search">
+            <span ng-bind-html="culture.DisplayName | highlight: $select.search"></span>
+        </ui-select-choices>
+    </ui-select>
+
+    <div style="padding-top: 50px;"></div>
+
+    <hot-table settings="settings"
+               row-headers="rowHeaders"
+               col-headers="colHeaders"
+               datarows="data">
+    </hot-table>
+</body>
+</html>
+
 
