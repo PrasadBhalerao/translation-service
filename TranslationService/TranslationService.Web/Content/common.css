@@ -34,3 +34,22 @@
 .margin-left-30 {
     margin-left: 30px;
 }
+
+.error-container {
+    border: 2px solid red;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.error-header {
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 2px;
+    color: red;
+}
+
+.error-text {
+    padding-left: 25px;
+    padding-bottom: 5px;
+    color: red;
+}

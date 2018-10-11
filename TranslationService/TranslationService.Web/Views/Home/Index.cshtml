@@ -34,8 +34,9 @@
 
     <h3>Editor</h3>
     
-    <div ng-show="validationResult">
-        <h2>{{validationResult}}</h2>
+    <div ng-show="validationResult" class="error-container">
+        <h5 class="error-header">Please fix below errors:</h5>
+        <h5 class="error-text" style="white-space: pre;">{{validationResult}}</h5>
     </div>
     <div class="row">
         <div class="col-md-3 z-index-105">
@@ -49,7 +50,8 @@
         <div class="col-md-5 margin-left-30">
             <button class="btn btn-success margin-left-30" ng-click="save()">Save</button>
             <button class="btn btn-primary margin-left-30" ng-click="generateReport()">Import Report</button>
-            <button class="btn btn-primary margin-left-30" ng-click="generateReport()">Export Report</button>
+            @*<input type="file" file-model="myFile" />*@
+            <button class="btn btn-primary margin-left-30" ng-click="uploadFile()">Export Report</button>
             @*<a ng-href="{{ fileUrl }}" download="test.xlsx" ng-click="generateReport()">download</a>*@
         </div>
     </div>    

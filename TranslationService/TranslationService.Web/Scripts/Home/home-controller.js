@@ -27,7 +27,7 @@ app.controller('homeController', function ($scope, $http, $timeout, $interval, $
             }
             return cellProperties;
         },
-        colWidths:[500, 500]
+        colWidths:[500, 600]
     };
 
     $scope.culture = {};
