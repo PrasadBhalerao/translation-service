@@ -50,11 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CultureService.cs" />
     <Compile Include="Services\TranslationService.cs" />
+    <Compile Include="Validation\TranslationValidator.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Command\" />
-    <Folder Include="Query\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\PersistenceLayer\PersistenceLayer.csproj">
       <Project>{8ECA7B2B-3767-44AF-9BE8-712A484A0C5F}</Project>

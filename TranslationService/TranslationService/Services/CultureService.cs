@@ -22,5 +22,11 @@ namespace TranslationService.Services
             var list = await _db.Cultures.ToListAsync();
             return list;
         }
+
+        public async Task<Culture> GetCultureInfo(int cultureId)
+        {
+            var culture = await _db.Cultures.Where(x => x.KeyID == cultureId).FirstOrDefaultAsync();
+            return culture;
+        }
     }
 }

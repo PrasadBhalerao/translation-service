@@ -119,10 +119,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\common.css" />
     <Content Include="Content\selectize.default.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Home\app.js" />
     <Content Include="Scripts\Home\home-controller.js" />
     <Content Include="Scripts\Home\home-service.js" />
     <Content Include="Web.config">
@@ -131,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CultureController.cs" />
+    <Compile Include="Api\ReportController.cs" />
     <Compile Include="Api\TranslationController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -146,6 +149,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Excel\ExportCustomers.xlsx" />
+    <Content Include="Content\Excel\ImportCustomers.xlsx" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -167,6 +172,10 @@
     <ProjectReference Include="..\PersistenceLayer\PersistenceLayer.csproj">
       <Project>{8ECA7B2B-3767-44AF-9BE8-712A484A0C5F}</Project>
       <Name>PersistenceLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Report\Report.csproj">
+      <Project>{653E66CA-2BF8-428E-9BE2-6A13F32D5331}</Project>
+      <Name>Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\TranslationService\ServiceLayer.csproj">
       <Project>{3DD91783-E1EF-48F6-90C5-26A26AA94D8A}</Project>

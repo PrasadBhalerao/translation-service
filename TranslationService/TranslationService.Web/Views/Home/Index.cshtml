@@ -1,19 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "Index";        
+    ViewBag.Title = "Home";        
 }
 
 <!DOCTYPE html>
-<html lang="en" ng-app="demo">
+<html lang="en" ng-app="homeApp">
 <head>
-    <meta charset="utf-8">
-    <title>AngularJS ui-select</title>
-
+    <!-- angular -->
     <script src="/node_modules/angular/angular.js"></script>
+    <script src="~/Scripts/Home/app.js"></script>
     <script src="~/Scripts/Home/home-controller.js"></script>
     <script src="~/Scripts/Home/home-service.js"></script>
     <script src="/node_modules/angular-sanitize/angular-sanitize.js"></script>
     <script src="/node_modules/angular-resource/angular-resource.js"></script>
+    <script src="/node_modules/angular-route/angular-route.js"></script>
     <script src="/node_modules/handsontable/dist/handsontable.full.js"></script>
     <script src="/node_modules/ng-handsontable/dist/ngHandsontable.js"></script>
 
@@ -24,65 +24,38 @@
     <!-- themes -->
     <link rel="stylesheet" href="~/Content/selectize.default.css">
 
-    <!-- angular -->
+    <!-- hot css -->
     <link rel="stylesheet" media="screen" href="/node_modules/handsontable/dist/handsontable.full.css">
-
-    <style>
-        body {
-            padding: 15px;
-        }
-
-        .select2 > .select2-choice.ui-select-match {
-            /* Because of the inclusion of Bootstrap */
-            height: 29px;
-        }
-
-        .selectize-control > .selectize-dropdown {
-            top: 36px;
-        }
-        /* Some additional styling to demonstrate that append-to-body helps achieve the proper z-index layering. */
-        .select-box {
-            background: #fff;
-            position: relative;
-            z-index: 1;
-        }
-
-        .alert-info.positioned {
-            margin-top: 1em;
-            position: relative;
-            z-index: 10000; /* The select2 dropdown has a z-index of 9999 */
-        }
-
-        .myGrid {
-            z-index: -1;
-        }
-
-    </style>
+    <link rel="stylesheet" href="~/Content/common.css">
 </head>
 
-<body class="ng-cloak" ng-controller="DemoCtrl">
-
+<body class="ng-cloak" ng-controller="homeController">
     <div style="padding-top: 50px;"></div>
 
-    <h3>Select a culture</h3>
-
+    <h3>Editor</h3>
+    
+    <div ng-show="validationResult">
+        <h2>{{validationResult}}</h2>
+    </div>
     <div class="row">
-        <div class="col-md-3">
-            <ui-select ng-model="culture.selected" theme="selectize" style="width: 300px;" title="Choose a culture" on-select="cultureChanged()">
+        <div class="col-md-3 z-index-105">
+            <ui-select ng-model="culture.selected" theme="selectize" style="width: 300px;" title="Choose a culture" on-select="getTranslation()">
                 <ui-select-match placeholder="Select or search a culture in the list...">{{$select.selected.DisplayName}}</ui-select-match>
                 <ui-select-choices repeat="culture in cultures | filter: $select.search">
                     <span ng-bind-html="culture.DisplayName | highlight: $select.search"></span>
                 </ui-select-choices>
             </ui-select>
         </div>
-        <div class="col-md-2 col-md-offset-1">
-            <button class="btn btn-primary" ng-click="save()">Save</button>
+        <div class="col-md-5 margin-left-30">
+            <button class="btn btn-success margin-left-30" ng-click="save()">Save</button>
+            <button class="btn btn-primary margin-left-30" ng-click="generateReport()">Import Report</button>
+            <button class="btn btn-primary margin-left-30" ng-click="generateReport()">Export Report</button>
+            @*<a ng-href="{{ fileUrl }}" download="test.xlsx" ng-click="generateReport()">download</a>*@
         </div>
-    </div>
-    
+    </div>    
 
     <div style="padding-top: 50px;"></div>
-
+    <center><h4 ng-show="culture.selected != null">{{culture.selected.DisplayName}} ( {{culture.selected.CultureName}} )</h4></center>
     <hot-table hot-id="translation-table"
                settings="settings"
                row-headers="rowHeaders"

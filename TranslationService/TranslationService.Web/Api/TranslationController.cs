@@ -1,4 +1,5 @@
 ﻿using PersistenceLayer.ValueObjects;
+using PersistenceLayer.ViewModel.cs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TranslationService.Services;
+using TranslationService.Validation;
 
 namespace TranslationService.Web.Api
 {
@@ -14,10 +16,12 @@ namespace TranslationService.Web.Api
     public class TranslationController : ApiController
     {
         private TranslationService.Services.TranslationService _translationService;
+        private TranslationValidator _translationValidator;
 
         public TranslationController()
         {
             _translationService = new TranslationService.Services.TranslationService();
+            _translationValidator = new TranslationValidator();
         }
 
         [HttpGet]
@@ -30,13 +34,12 @@ namespace TranslationService.Web.Api
         [HttpPost]
         public void Post([FromBody]TranslationDTO translations)
         {
+            var validationResult = _translationValidator.Validate(translations);
+            if(validationResult.IsFailed)
+            {
+                throw new Exception(validationResult.Error);
+            }
             _translationService.SaveTranslationForCulture(translations.CultureId, translations.Translations);
         }
-    }
-
-    public class TranslationDTO
-    {
-        public int CultureId { get; set; }
-        public List<TranslationVO> Translations { get; set; }
-    }
+    }    
 }

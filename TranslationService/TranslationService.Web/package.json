@@ -12,6 +12,7 @@
   "dependencies": {
     "angular": "^1.7.4",
     "angular-resource": "^1.7.4",
+    "angular-route": "^1.7.5",
     "angular-sanitize": "^1.7.4",
     "ng-handsontable": "^0.13.0",
     "ui-select": "^0.19.8"
