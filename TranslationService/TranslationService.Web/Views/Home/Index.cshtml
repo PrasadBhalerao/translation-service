@@ -17,6 +17,8 @@
     <script src="/node_modules/handsontable/dist/handsontable.full.js"></script>
     <script src="/node_modules/ng-handsontable/dist/ngHandsontable.js"></script>
 
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/lodash/lodash.js"></script>
     <!-- ui-select files -->
     <script src="/node_modules/ui-select/dist/select.js"></script>
     <link rel="stylesheet" href="/node_modules/ui-select/dist/select.css">
@@ -47,12 +49,18 @@
                 </ui-select-choices>
             </ui-select>
         </div>
-        <div class="col-md-5 margin-left-30">
-            <button class="btn btn-success margin-left-30" ng-click="save()">Save</button>
-            <button class="btn btn-primary margin-left-30" ng-click="generateReport()">Import Report</button>
-            @*<input type="file" file-model="myFile" />*@
-            <button class="btn btn-primary margin-left-30" ng-click="uploadFile()">Export Report</button>
-            @*<a ng-href="{{ fileUrl }}" download="test.xlsx" ng-click="generateReport()">download</a>*@
+        <div class="col-md-8 margin-left-30">
+            <div ng-if="!showFileUploaderDiv">
+                <button class="btn btn-success margin-left-30" ng-click="save()">Save</button>
+                <button class="btn btn-primary margin-left-30" ng-click="generateReport(false)">Export Excel</button>
+                <button class="btn btn-primary margin-left-30" ng-click="generateReport(true)">Export JSON</button>
+                <button class="btn btn-primary margin-left-30" ng-click="showFileUploader()">Import Excel</button>
+            </div>
+            <div ng-if="showFileUploaderDiv" id="fileUploader">
+                <input class="col-md-7 btn btn-info margin-left-30" type="file" id="file1" name="file" ng-files="getTheFiles($files)" />
+                <button class="btn btn-success margin-left-30" ng-click="uploadFiles()">Upload</button>
+                <button class="btn btn-primary margin-left-30" ng-click="cancelUpload()">Cancel</button>
+            </div>
         </div>
     </div>    
 

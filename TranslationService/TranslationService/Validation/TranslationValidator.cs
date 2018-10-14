@@ -10,22 +10,27 @@ namespace TranslationService.Validation
 {
     public class TranslationValidator
     {
-        private DataContext _db;
-        public TranslationValidator()
-        {
-            _db = new DataContext();
-        }
-
         public ValidationResult Validate(TranslationDTO translations)
         {
             var error = "";
+            var count = 1;
+            
+            //no rows
+            if (translations.Translations.Count == 0)
+            {
+                return new ValidationResult()
+                {
+                    IsFailed = true,
+                    Error = "Add translations"
+                };
+            }
 
             //duplicate keys
             var duplicateItems = translations.Translations.GroupBy(x => x.Key).Where(y => y.Count() > 1).SelectMany(z => z);
 
             var duplicateKeys = duplicateItems.Select(x => x.Key).Distinct().ToList();
 
-            var count = 1;
+            
             duplicateKeys.ForEach(x =>
             {
                 error +=  count + ". Remove duplicate key: '" + x + "' \n";
@@ -39,12 +44,5 @@ namespace TranslationService.Validation
             };
             return validationResult;
         }
-    }
-
-    public class ValidationResult
-    {
-        public bool IsFailed { get; set; }
-        public string Error { get; set; }
-
-    }
+    }   
 }

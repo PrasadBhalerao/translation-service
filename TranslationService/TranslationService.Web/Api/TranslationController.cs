@@ -32,14 +32,14 @@ namespace TranslationService.Web.Api
         }
 
         [HttpPost]
-        public void Post([FromBody]TranslationDTO translations)
+        public async Task Post([FromBody]TranslationDTO translations)
         {
             var validationResult = _translationValidator.Validate(translations);
             if(validationResult.IsFailed)
             {
                 throw new Exception(validationResult.Error);
             }
-            _translationService.SaveTranslationForCulture(translations.CultureId, translations.Translations);
+            await _translationService.SaveTranslationForCulture(translations.CultureId, translations.Translations);
         }
     }    
 }

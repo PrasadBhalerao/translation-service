@@ -9,8 +9,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Mvc;
+using TranslationService.Validation;
 
 namespace TranslationService.Web.Api
 {
@@ -18,20 +20,47 @@ namespace TranslationService.Web.Api
     public class ReportController : ApiController
     {
         private ExcelService _excelService;
+        private ReportValidator _reportValidator;
+
         public ReportController()
         {
             _excelService = new ExcelService();
+            _reportValidator = new ReportValidator();
         }
 
         [System.Web.Http.HttpGet]
-        public async Task<ExcelReportVO> Get(int id)
+        public async Task<ExcelReportVO> Get(int id, bool isJson)
         {
-            var fileName = await _excelService.GenerateReport(id);
-            var path = @"\Content\Excel\" + fileName;
+            var fileName = "";
+            if (isJson)
+            {
+                fileName = await _excelService.GenerateJSONReport(id);
+            }
+            else
+            {
+                fileName = await _excelService.GenerateExcelReport(id);
+            }
+            var path = @"\Content\ExportFiles\" + fileName;
             return new ExcelReportVO()
             {
                 Path = path
             };
         }
+
+        [System.Web.Http.HttpPost]
+        public async Task UploadFile([FromUri]int id)
+        {
+            var file = HttpContext.Current.Request.Files.Count > 0 ?
+                    HttpContext.Current.Request.Files[0] : null;            
+
+            var validationResult = _reportValidator.Validate(file);
+            if (validationResult.IsFailed)
+            {
+                throw new Exception(validationResult.Error);
+            }
+
+            await _excelService.SaveExcelData(id, file.InputStream);
+        }
+
     }
 }

@@ -149,8 +149,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Excel\ExportCustomers.xlsx" />
-    <Content Include="Content\Excel\ImportCustomers.xlsx" />
+    <Content Include="Content\ExportFiles\ExportCustomers.xlsx" />
+    <Content Include="Content\ExportFiles\ImportCustomers.xlsx" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />

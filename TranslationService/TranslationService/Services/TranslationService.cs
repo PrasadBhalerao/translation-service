@@ -30,47 +30,73 @@ namespace TranslationService.Services
                            Value = translationValue.Value,
                            TranslationKeyId = translationKey.KeyID,
                            TranslationValueId = translationValue.KeyID
-                       }).ToListAsync();
+                       }).OrderBy(x => x.Key).ToListAsync();
 
             return list;
         }
 
-        public async void SaveTranslationForCulture(int cultureId, List<TranslationVO> translations)
+        public async Task SaveTranslationForCulture(int cultureId, List<TranslationVO> translations)
         {
-            var newTranslationKeys = new List<TranslationKey>();
-            var newTranslationValues = new List<TranslationValue>();
+            var translationKeys = translations.Select(x => x.Key);
 
-            foreach (var translation in translations)
+            //fetch persisted transltion keys
+            var existingTranslationKeys = await _db.TranslationKeys.Where(x => translationKeys.Contains(x.Key)).ToListAsync();
+
+            var existingTranlationKeyIds = existingTranslationKeys.Select(x => x.KeyID);
+
+            //fetch persisted translation values
+            var existingTranslationValues = await _db.TranslationValues.Where(x => existingTranlationKeyIds.Contains(x.TranslationKeyID) && x.CultureID == cultureId).ToListAsync();
+
+            var existingTranslationPairs = (from key in existingTranslationKeys
+                                           join value in translations
+                                           on key.Key equals value.Key
+                                           select new
+                                           {
+                                               key.KeyID,
+                                               value.Value
+                                           }).ToDictionary(x => x.KeyID, y => y.Value);
+
+
+            //update existing translation value
+            foreach (var translation in existingTranslationValues)
             {
-                if (translation.TranslationKeyId == null)
+                translation.Value = existingTranslationPairs[translation.TranslationKeyID];
+            }
+
+            //add new translation keys
+            var newKeys = translationKeys.Where(x => !existingTranslationKeys.Select(y => y.Key).Contains(x)).ToList();
+            var newTranslationKeys = new List<TranslationKey>();
+            var newTranslationPairs = translations.Where(x => newKeys.Contains(x.Key));
+
+            foreach (var translation in newTranslationPairs)
+            {
+                newTranslationKeys.Add(new TranslationKey()
                 {
-                    newTranslationKeys.Add(new TranslationKey()
-                    {
-                        Key = translation.Key
-                    });
-                }
+                    Key = translation.Key
+                });
             }
 
             _db.TranslationKeys.AddRange(newTranslationKeys);
             await _db.SaveChangesAsync();
 
+            //add new translation values
             var translationKeyDict = newTranslationKeys.ToDictionary(x => x.Key, y => y.KeyID);
+            var newTranslationValues = new List<TranslationValue>();
 
-            foreach (var translation in translations)
+            foreach (var translation in newTranslationPairs)
             {
-                if (translation.TranslationValueId == null)
-                {
-                    newTranslationValues.Add(new TranslationValue()
-                    {
-                        TranslationKeyID = translationKeyDict[translation.Key],
-                        CultureID = cultureId,
-                        Value = translation.Value == null ? string.Empty : translation.Value
-                    });
-                }
+               newTranslationValues.Add(new TranslationValue()
+               {
+                    TranslationKeyID = translationKeyDict[translation.Key],
+                    CultureID = cultureId,
+                    Value = translation.Value == null ? string.Empty : translation.Value
+               });
             }
+
             _db.TranslationValues.AddRange(newTranslationValues);
             await _db.SaveChangesAsync();
-        }
 
+            return;
+        }
     }
 }
