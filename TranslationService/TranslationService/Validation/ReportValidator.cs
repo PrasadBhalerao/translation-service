@@ -17,11 +17,11 @@ namespace TranslationService.Validation
 
             if (file == null || file.ContentLength == 0)
             {
-                error += count + ". Please select a file. \n";
+                error += count + ". Please select a file \n";
                 count++;
             }
 
-            if (file.FileName.Split('.').Last() != "xlsx")
+            if (file != null && file.FileName.Split('.').Last() != "xlsx")
             {
                 error += count + ". Only excel files with '.xlsx' extensions can be added! \n";
                 count++;
