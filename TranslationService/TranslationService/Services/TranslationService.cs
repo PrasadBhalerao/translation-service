@@ -4,6 +4,7 @@ using PersistenceLayer.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,15 +22,16 @@ namespace TranslationService.Services
 
         public async Task<List<TranslationVO>> GetTranslationsForCulture(int cultureId)
         {
-            var list = await(from translationKey in _db.TranslationKeys
-                       join translationValue in _db.TranslationValues.Where(x => x.CultureID == cultureId)
-                       on translationKey.KeyID equals translationValue.TranslationKeyID
+            var list = await (from translationKey in _db.TranslationKeys
+                              join translationValue in _db.TranslationValues.Where(x => x.CultureID == cultureId)
+                              on translationKey.KeyID equals translationValue.TranslationKeyID into translatedValues
+                              from translatedValue in translatedValues.DefaultIfEmpty()
                        select new TranslationVO
                        {
                            Key = translationKey.Key,
-                           Value = translationValue.Value,
+                           Value = translatedValue.Value,
                            TranslationKeyId = translationKey.KeyID,
-                           TranslationValueId = translationValue.KeyID
+                           TranslationValueId = translatedValue.KeyID
                        }).OrderBy(x => x.Key).ToListAsync();
 
             return list;
@@ -37,65 +39,76 @@ namespace TranslationService.Services
 
         public async Task SaveTranslationForCulture(int cultureId, List<TranslationVO> translations)
         {
-            var translationKeys = translations.Select(x => x.Key);
+            var persistedTranslations = await GetTranslationsForCulture(cultureId);
 
-            //fetch persisted transltion keys
-            var existingTranslationKeys = await _db.TranslationKeys.Where(x => translationKeys.Contains(x.Key)).ToListAsync();
-
-            var existingTranlationKeyIds = existingTranslationKeys.Select(x => x.KeyID);
-
-            //fetch persisted translation values
-            var existingTranslationValues = await _db.TranslationValues.Where(x => existingTranlationKeyIds.Contains(x.TranslationKeyID) && x.CultureID == cultureId).ToListAsync();
-
-            var existingTranslationPairs = (from key in existingTranslationKeys
-                                           join value in translations
-                                           on key.Key equals value.Key
-                                           select new
-                                           {
-                                               key.KeyID,
-                                               value.Value
-                                           }).ToDictionary(x => x.KeyID, y => y.Value);
-
-
-            //update existing translation value
-            foreach (var translation in existingTranslationValues)
-            {
-                translation.Value = existingTranslationPairs[translation.TranslationKeyID];
-            }
-
-            //add new translation keys
-            var newKeys = translationKeys.Where(x => !existingTranslationKeys.Select(y => y.Key).Contains(x)).ToList();
+            var persistedKeys = persistedTranslations.Select(x => x.Key);
+            var newKeys = translations.Where(x => !persistedKeys.Contains(x.Key)).Select(x => x.Key).ToList();
             var newTranslationKeys = new List<TranslationKey>();
-            var newTranslationPairs = translations.Where(x => newKeys.Contains(x.Key));
-
-            foreach (var translation in newTranslationPairs)
+            //add new keys
+            foreach (var key in newKeys)
             {
                 newTranslationKeys.Add(new TranslationKey()
                 {
-                    Key = translation.Key
+                    Key = key
                 });
             }
-
             _db.TranslationKeys.AddRange(newTranslationKeys);
             await _db.SaveChangesAsync();
 
-            //add new translation values
-            var translationKeyDict = newTranslationKeys.ToDictionary(x => x.Key, y => y.KeyID);
             var newTranslationValues = new List<TranslationValue>();
-
-            foreach (var translation in newTranslationPairs)
+            //add new values
+            foreach (var key in newTranslationKeys)
             {
-               newTranslationValues.Add(new TranslationValue()
-               {
-                    TranslationKeyID = translationKeyDict[translation.Key],
+                newTranslationValues.Add(new TranslationValue()
+                {
+                    TranslationKeyID = key.KeyID,
                     CultureID = cultureId,
-                    Value = translation.Value == null ? string.Empty : translation.Value
-               });
+                    Value = translations.Single(x => x.Key == key.Key).Value
+                });
             }
-
             _db.TranslationValues.AddRange(newTranslationValues);
+
+            //add existing key translation values
+            var existingKeyTranslations = persistedTranslations.Where(x => !newKeys.Contains(x.Key) && x.TranslationValueId == null);
+            foreach (var translationValue in existingKeyTranslations)
+            {
+                var value = translations.Single(x => x.Key == translationValue.Key).Value;
+                var translationValueObj = new TranslationValue()
+                {
+                    CultureID = cultureId,
+                    KeyID = 0,
+                    TranslationKeyID = translationValue.TranslationKeyId ?? 0,
+                    Value = value == null ? string.Empty : value
+                };
+                _db.TranslationValues.Add(translationValueObj);
+            };
             await _db.SaveChangesAsync();
 
+            //update existing translation values
+            foreach (var translationValue in persistedTranslations.Where(x => x.TranslationValueId != null))
+            {
+                var value = translations.SingleOrDefault(x => x.Key == translationValue.Key)?.Value;
+                var translationValueObj = new TranslationValue()
+                {                    
+                    CultureID = cultureId,
+                    KeyID = translationValue.TranslationValueId ?? 0,
+                    TranslationKeyID = translationValue.TranslationKeyId ?? 0,
+                    Value = value == null  ? string.Empty : value
+                };
+                _db.Entry(translationValueObj).State = EntityState.Modified;
+            }
+
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                foreach (var entry in ex.Entries)
+                {
+                    entry.OriginalValues.SetValues(entry.GetDatabaseValues());
+                }
+            }
             return;
         }
     }

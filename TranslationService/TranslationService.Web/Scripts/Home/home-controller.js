@@ -111,6 +111,7 @@ app.controller('homeController', function ($scope, $http, $timeout, $interval, $
     $scope.uploadFiles = function () {
         homeService.uploadReport($scope.culture.selected.KeyID, formdata)
             .then(function () {
+                $scope.getTranslation();
                 alert("Successfully uploaded file!");
                 $scope.showFileUploaderDiv = !$scope.showFileUploaderDiv;
             },

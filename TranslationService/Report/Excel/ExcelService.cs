@@ -77,7 +77,7 @@ namespace Report.Excel
         {
             var translations = await _translationService.GetTranslationsForCulture(cultureId);
             var cultureInfo = await _cultureService.GetCultureInfo(cultureId);
-            var keyValuePairs = translations.Select(x => new { x.Key, x.Value });
+            var keyValuePairs = translations.ToDictionary(x => x.Key, y => y.Value);
 
             string json = JsonConvert.SerializeObject(keyValuePairs.ToArray());
 
